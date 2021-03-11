@@ -1,4 +1,6 @@
-// 1. prototype - это определенный объект, который присутствует у объектов и он вызывается по цепочке сверху вниз. С помощью этого объекта мы расширяем свойства объектов или классов. И с помощью него мы можем устраивать определенное наследование внутри js.
+'use strict'
+
+// ### 1. prototype - это определенный объект, который присутствует у объектов и он вызывается по цепочке сверху вниз. С помощью этого объекта мы расширяем свойства объектов или классов. И с помощью него мы можем устраивать определенное наследование внутри js.
 const person = new Object({
   name: 'Max',
   age: 25,
@@ -37,7 +39,7 @@ Array.prototype.multBy = function (n) {
 
 // ==============================================
 
-// 2. Контекст this. Как работает call, bind, apply
+// ### 2. Контекст this. Как работает call, bind, apply
 
 function hello() {
   console.log('Hello', this);
@@ -75,7 +77,7 @@ const lena2 = {
 
 // =================================================
 
-// 3. Замыкания. Как они работают
+// ### 3. Замыкания. Как они работают
 
 function createCalcFunc(n) {
   return function () {
@@ -142,7 +144,7 @@ function bind(context, fn) {
 
 // ===============================================
 
-// 4. Асинхронность.Что такое Event Loop. JS SetTimeout 0
+// ### 4. Асинхронность.Что такое Event Loop. JS SetTimeout 0
 
 /*
 Как Event Loop работает:
@@ -165,7 +167,7 @@ http://latentflip.com/loupe
 
 // ================================================
 
-// 5. Promise - это определенная обертка над асинхронностью, которая добавляет удобства для написания кода
+// ### 5. Promise - это определенная обертка над асинхронностью, которая добавляет удобства для написания кода
 
 // console.log('Request data...');
 
@@ -218,7 +220,7 @@ const sleep = ms => {
 
 // ===========================================================
 
-// 6. Объекты с Object.create. Что такое getters, setters
+// ### 6. Объекты с Object.create. Что такое getters, setters
 
 const person5 = Object.create(
   {
@@ -266,7 +268,7 @@ const person5 = Object.create(
 
 // ======================================================
 
-// 7. Все о ES6 Классах
+// ### 7. Все о ES6 Классах
 
 class Animal {
   static type = 'ANIMAL'; // static переменная доступна только у самоого класса Animal
@@ -360,7 +362,7 @@ class Circle extends Box {
 
 // ===================================================
 
-// 8. Async, Await. Работа с сервером c fetch
+// ### 8. Async, Await. Работа с сервером c fetch
 
 const delay = ms => {
   return new Promise(resolve => setTimeout(() => resolve(), ms));
@@ -405,7 +407,7 @@ async function fetchAsyncTodos() { // async function всегда возвращ
 
 // ==================================================
 
-// 9. Proxy. Объекты, функции, классы.
+// ### 9. Proxy. Объекты, функции, классы.
 
 // proxy with objects
 const user = {
@@ -479,7 +481,7 @@ const UserProxy = new Proxy(UserForProxy, {
 
 // ====================================================
 
-// 10. Proxy. Примеры.
+// ### 10. Proxy. Примеры.
 
 // Wrapper
 const withDefaultValue = (target, defaultValue = 0) => {
@@ -547,3 +549,123 @@ const IndexArray = new Proxy(Array, {
 });
 
 const users = new IndexArray(userData);
+
+// ======================================================
+
+// ### 11. Генераторы. Symbol iterator, for of
+
+// Генераторы. Порционно выдаем результат
+function* strGenerator() {
+  yield 'H';
+  yield 'e';
+  yield 'l';
+  yield 'l';
+  yield 'o';
+}
+
+const strGen = strGenerator();
+
+// console.log(strGen.next());
+// console.log(strGen.next().value);
+// console.log(strGen.next().value);
+
+function* numberGen(n = 10) {
+  for (let i = 0; i < n; i++) {
+    yield i;
+  }
+}
+
+const num = numberGen(7);
+
+const iterator = { // повторяем логику генератора
+  gen(n = 10) {
+    let i = 0;
+    return {
+      next() {
+        if (i < n) {
+          return {value: ++i, done: false};
+        }
+        return {value: undefined, done: true};
+      }
+    }
+  }
+}
+
+const itr = iterator.gen(7);
+
+// console.log(itr.next());
+// console.log(itr.next().value);
+// console.log(itr.next().value);
+
+function* iter(n = 10) {
+  for (let i = 0; i < n; i++) {
+    yield i;
+  }
+}
+
+// в генераторах определен Symbol.iterator, который позволяет работать в цикле for...of
+
+// for (let k of strGenerator) {
+//   console.log(k);
+// }
+
+// ================================================
+
+// ### 12. Методы массивов (forEach, map, filter, reduce, find, findIndex). Js Массивы.
+
+const peopleList = [
+  {id: 1, name: 'Serg', job: 'Fullstack', age: 25, budget: 150000},
+  {id: 2, name: 'Max', job: 'Student', age: 23, budget: 25000},
+  {id: 3, name: 'Jon', job: 'Backend', age: 32, budget: 5400},
+  {id: 4, name: 'Vera', job: 'Backend', age: 17, budget: 38000},
+];
+
+// for (let i = 0; i < peopleList.length; i++) {
+//   console.log(peopleList[i]);
+// }
+
+// for (let item of peopleList) { // ES6 синтаксис
+//   console.log(item);
+// }
+
+// ForEach
+// peopleList.forEach(function (item, index, array) {
+//   console.log(item);
+//   console.log(index);
+//   console.log(array);
+// });
+
+// peopleList.forEach(people => console.log(people));
+
+// Map создает новый массив
+const newList = peopleList
+  .map((people, index, arr) => {
+  return `${people.name} ${people.age}`;
+});
+
+// Filter фильтрует по условию исходный массив.
+const filteredList = peopleList
+  .filter((people, index, arr) => people.age > 17);
+
+// Reduce
+const budgetSum = peopleList
+  .reduce((sum, people, index, arr) => sum + people.budget, 0);
+
+// Find находим по условию нужный элемент
+const itemSerg = peopleList
+  .find((people, index, arr) => people.name === 'Serg');
+
+// FindIndex находим индекс элемента
+const itemSergIndex = peopleList
+  .findIndex((people, index, arr) => people.name === 'Serg');
+
+// Выстраиваем цепочку методов - чейны
+const newArrData = peopleList
+  .filter(people => people.budget > 10000)
+  .map(people => {
+    return {
+      info: `${people.name} ${people.age}`,
+      budget: people.budget * 1.3
+    }
+  })
+  .reduce((acc, item) => acc + item.budget, 0);
