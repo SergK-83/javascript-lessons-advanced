@@ -45,26 +45,26 @@ function hello() {
   console.log('Hello', this);
 }
 
-const person2 = {
-  name: 'Max',
-  age: 25,
-  sayHello: hello,
-  sayHelloWindow: hello.bind(window),
-  logInfo: function (job, phone) {
-    console.log(this);
-    console.group(`${this.name} info:`)
-    console.log(`Name is ${this.name}`);
-    console.log(`Age is ${this.age}`);
-    console.log(`Job is ${job}`);
-    console.log(`Phone is ${phone}`);
-    console.groupEnd();
-  }
-};
-
-const lena2 = {
-  name: 'Elena2',
-  age: 23
-}
+// const person2 = {
+//   name: 'Max',
+//   age: 25,
+//   sayHello: hello,
+//   sayHelloWindow: hello.bind(window),
+//   logInfo: function (job, phone) {
+//     console.log(this);
+//     console.group(`${this.name} info:`)
+//     console.log(`Name is ${this.name}`);
+//     console.log(`Age is ${this.age}`);
+//     console.log(`Job is ${job}`);
+//     console.log(`Phone is ${phone}`);
+//     console.groupEnd();
+//   }
+// };
+//
+// const lena2 = {
+//   name: 'Elena2',
+//   age: 23
+// }
 
 // person2.logInfo.bind(lena2, 'Frontend', '8-999-999-99-99')();
 // // метод bind() возвращает новую функцию, не вызывая её
@@ -669,3 +669,173 @@ const newArrData = peopleList
     }
   })
   .reduce((acc, item) => acc + item.budget, 0);
+
+// ================================================
+
+// ### 13. Map, Set, WeakMap, WeakSet
+
+const obj_13 = {
+  name: 'Serg',
+  age: 37,
+  job: 'fullstack'
+};
+
+const entries_13 = [
+  ['name', 'Serg'],
+  ['age', 37],
+  ['job', 'fullstack']
+];
+
+// console.log(Object.entries(obj_13)); // [ [ 'name', 'Serg' ], [ 'age', 37 ], [ 'job', 'fullstack' ] ]
+//
+// console.log(Object.fromEntries(entries_13)); // { name: 'Serg', age: 37, job: 'fullstack' }
+
+// map
+
+const map_13 = new Map(entries_13);
+
+// console.log(map_13.get('job'));
+
+map_13
+  .set('newField', 42)
+  .set(obj_13, 'Value of object') // здесть ключами могут быть объекты
+  .set(NaN, 'NaN ??'); // ключом может быть даже NaN
+
+// console.log(map_13);
+// map_13.delete('job'); // удаление ключа
+// console.log(map_13.has('job')); // проверка наличия ключа
+// console.log(map_13.size);
+// map_13.clear(); // очистка карты
+// console.log(map_13.size);
+
+// console.log(map_13.entries())
+
+// for (let [key, value] of map_13) { // при итерации по карте по умолчанию вызывается метод entries()
+//   console.log(key, value);
+// }
+
+// console.log(map_13.values()); // вывод значений
+// console.log(map_13.keys());
+
+// map_13.forEach((val, key, map) => {
+//   console.log(key, val);
+// });
+
+// const arr_13 = [...map_13];
+// const arr_13_2 = Array.from(map_13);
+// const mapObj_13 = Object.fromEntries(map_13);
+//
+// console.log(mapObj_13);
+
+// ПРИМЕР map. Для каждого пользователя нужно записать, когда он посещал сайт
+const users_13 = [
+  {name: 'Alex', age: 23},
+  {name: 'Max', age: 28},
+  {name: 'Irina', age: 24},
+];
+
+const visitsUsers_13 = new Map();
+
+visitsUsers_13
+  .set(users_13[0], new Date())
+  .set(users_13[1], new Date(new Date().getTime() + 1000 * 60))
+  .set(users_13[2], new Date(new Date().getTime() + 5000 * 60));
+
+function lastVisit(user) {
+  return visitsUsers_13.get(user);
+}
+
+// console.log( lastVisit(users_13[1]) );
+
+// Set
+
+const set_13 = new Set([1, 2, 3, 3, 4, 5, 5, 6]);
+
+// console.log(set_13); // { 1, 2, 3, 4, 5, 6 } значения в единственном экземпляре
+
+set_13.add(10).add(20).add(20);
+
+// console.log(set_13.has(40));
+// console.log(set_13.size);
+
+// set_13.delete(2);
+// set_13.clear();
+
+// console.log(set_13.values());
+// console.log(set_13.keys());
+// console.log(set_13.entries());
+
+// for (let key of set_13) {
+//   console.log(key);
+// }
+
+// ПРИМЕР set. Возврат уникальных знычений из массива
+function uniqueValues(arr) {
+  return [...new Set(arr)]; // Array.from(new Set(arr))
+}
+
+// console.log(uniqueValues([1, 2, 3, 3, 4, 5, 5, 6]));
+
+// WeakMap с помощью этого можно избегать различных утечек данных в javascript. Ключами могут являться только объекты
+
+let obj_13_2 = {name: 'weakmap'};
+
+// const arr_13 = [obj_13_2];
+//
+// obj_13_2 = null;
+//
+// console.log(obj_13_2);
+
+const weakMap = new WeakMap([ // ключами могут являться только объекты
+  [obj_13_2, 'obj data']
+]);
+// у WeakMap есть только get, set, delete, has
+
+obj_13_2 = null;
+
+// console.log(weakMap.has(obj_13_2)); // false
+// console.log(weakMap);
+
+// ПРИМЕР WeakMap. Если в кэше есть пользователь, возвращаем его значение. Если пользователя нет в кэше, сначала добавляем в кэш пользователя, добавляем ему значение и затем возврашаем его.
+const cache = new WeakMap();
+
+function cacheUser(user) {
+  if (!cache.has(user)) {
+    cache.set(user, Date.now());
+  }
+  return cache.get(user);
+}
+
+let userLena = {name: 'Lena'};
+let userMax = {name: 'Max'};
+
+cacheUser(userLena);
+cacheUser(userMax);
+
+userLena = null;
+
+// console.log(cache.has(userLena));
+// console.log(cache.has(userMax));
+
+// WeakSet. Значениями могут являться только объекты. И Если какой-то объект вычищается сборщиком мусора, то тогда он удаляется из WeakSet.
+
+const users_13_2 = [
+  {name: 'Alex', age: 23},
+  {name: 'Max', age: 28},
+  {name: 'Irina', age: 24},
+];
+
+const visits_13 = new WeakSet();
+
+visits_13.add(users_13_2[0]).add(users_13_2[1]);
+
+users_13_2.splice(1, 1);
+
+// console.log(visits_13.has(users_13_2[0]));
+// console.log(visits_13.has(users_13_2[1]));
+
+// =================================================
+
+// 14. Запросы на сервер. Fetch, XMLHttpRequest (XHR), Ajax
+
+// Смотреть файл xhr.js
