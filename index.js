@@ -2,15 +2,15 @@
 
 // ### 1. prototype - это определенный объект, который присутствует у объектов и он вызывается по цепочке сверху вниз. С помощью этого объекта мы расширяем свойства объектов или классов. И с помощью него мы можем устраивать определенное наследование внутри js.
 const person = new Object({
-  name: 'Max',
-  age: 25,
-  greet: function () {
-    console.log('Greet!');
-  }
+	name: 'Max',
+	age: 25,
+	greet: function () {
+		console.log('Greet!');
+	}
 });
 
 Object.prototype.sayHello = function () {
-  console.log('Hello');
+	console.log('Hello');
 };
 
 const lena = Object.create(person);
@@ -30,9 +30,9 @@ const array = [1, 2, 3, 4, 5];
 // }
 
 Array.prototype.multBy = function (n) {
-  return this.map(function (i) {
-    return i * n;
-  });
+	return this.map(function (i) {
+		return i * n;
+	});
 }
 
 // console.log(array.multBy(2));
@@ -42,7 +42,7 @@ Array.prototype.multBy = function (n) {
 // ### 2. Контекст this. Как работает call, bind, apply
 
 function hello() {
-  console.log('Hello', this);
+	console.log('Hello', this);
 }
 
 // const person2 = {
@@ -80,9 +80,9 @@ function hello() {
 // ### 3. Замыкания. Как они работают
 
 function createCalcFunc(n) {
-  return function () {
-    console.log(1000 * n);
-  }
+	return function () {
+		console.log(1000 * n);
+	}
 }
 
 const calc = createCalcFunc(42);
@@ -90,9 +90,9 @@ const calc = createCalcFunc(42);
 // calc();
 
 function createIncrementor(n1) {
-  return function (n2) {
-    return n1 + n2;
-  };
+	return function (n2) {
+		return n1 + n2;
+	};
 }
 
 const addOne = createIncrementor(1);
@@ -100,9 +100,9 @@ const addOne = createIncrementor(1);
 // console.log(addOne(10));
 
 function urlGenerator(domain) {
-  return function (url) {
-    return `https://${url}.${domain}`;
-  }
+	return function (url) {
+		return `https://${url}.${domain}`;
+	}
 }
 
 const comUrl = urlGenerator('com');
@@ -127,16 +127,16 @@ const ruUrl = urlGenerator('ru');
  */
 
 function logPerson() {
-  console.log(`Person: ${this.name}, ${this.age}, ${this.job}`);
+	console.log(`Person: ${this.name}, ${this.age}, ${this.job}`);
 }
 
 const person3 = {name: "Volt", age: 22, job: 'Frontend'};
 const person4 = {name: "Jon", age: 23, job: 'SMM'};
 
 function bind(context, fn) {
-  return function (...args) {
-    fn.apply(context, args);
-  }();
+	return function (...args) {
+		fn.apply(context, args);
+	}();
 }
 
 // bind(person3, logPerson);
@@ -202,9 +202,9 @@ http://latentflip.com/loupe
 //     .finally(() => console.log('Finally'));
 
 const sleep = ms => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(), ms);
-  });
+	return new Promise(resolve => {
+		setTimeout(() => resolve(), ms);
+	});
 };
 
 // sleep(2000).then(() => console.log('After 2 sec'));
@@ -223,40 +223,40 @@ const sleep = ms => {
 // ### 6. Объекты с Object.create. Что такое getters, setters
 
 const person5 = Object.create(
-  {
-    calculateAge() {
-      console.log('Age: ', new Date().getFullYear() - this.birthYear);
-    }
-  },
-  {
-    name: {
-      value: 'Sergey',
-      enumerable: true,
-      writable: true,
-      configurable: true
-    },
-    birthYear: {
-      value: 1983,
-      enumerable: false,
-      writable: false,
-      configurable: false
-    },
-    age: {
-      get() {
-        return new Date().getFullYear() - this.birthYear;
-      },
-      set(value) {
-        document.body.style.background = '#ccc';
-        console.log('Set age ', value);
-      }
-    },
-    logName: {
-      value: function () {
-        console.log(this.name);
-      },
-      enumerable: true
-    }
-  }
+	{
+		calculateAge() {
+			console.log('Age: ', new Date().getFullYear() - this.birthYear);
+		}
+	},
+	{
+		name: {
+			value: 'Sergey',
+			enumerable: true,
+			writable: true,
+			configurable: true
+		},
+		birthYear: {
+			value: 1983,
+			enumerable: false,
+			writable: false,
+			configurable: false
+		},
+		age: {
+			get() {
+				return new Date().getFullYear() - this.birthYear;
+			},
+			set(value) {
+				document.body.style.background = '#ccc';
+				console.log('Set age ', value);
+			}
+		},
+		logName: {
+			value: function () {
+				console.log(this.name);
+			},
+			enumerable: true
+		}
+	}
 );
 
 
@@ -271,17 +271,17 @@ const person5 = Object.create(
 // ### 7. Все о ES6 Классах
 
 class Animal {
-  static type = 'ANIMAL'; // static переменная доступна только у самоого класса Animal
+	static type = 'ANIMAL'; // static переменная доступна только у самоого класса Animal
 
-  constructor(options) {
-    this.name = options.name;
-    this.age = options.age;
-    this.hasTail = options.hasTail;
-  }
+	constructor(options) {
+		this.name = options.name;
+		this.age = options.age;
+		this.hasTail = options.hasTail;
+	}
 
-  voice() {
-    console.log('I am Animal');
-  }
+	voice() {
+		console.log('I am Animal');
+	}
 }
 
 // const animal = new Animal({
@@ -291,54 +291,54 @@ class Animal {
 // });
 
 class Cat extends Animal {
-  static type = 'CAT';
+	static type = 'CAT';
 
-  constructor(options) {
-    super(options);
-    this.color = options.color;
-  }
+	constructor(options) {
+		super(options);
+		this.color = options.color;
+	}
 
-  voice() {
-    super.voice();
-    console.log('I am cat');
-  }
+	voice() {
+		super.voice();
+		console.log('I am cat');
+	}
 
-  get ageInfo() {
-    return this.age * 7;
-  }
+	get ageInfo() {
+		return this.age * 7;
+	}
 
-  set ageInfo(newAge) {
-    this.age = newAge;
-  }
+	set ageInfo(newAge) {
+		this.age = newAge;
+	}
 }
 
 const cat = new Cat({
-  name: 'Cat',
-  age: 7,
-  hasTail: true,
-  color: 'black'
+	name: 'Cat',
+	age: 7,
+	hasTail: true,
+	color: 'black'
 });
 
 class Component {
-  constructor(selector) {
-    this.$el = document.querySelector(selector);
-  }
+	constructor(selector) {
+		this.$el = document.querySelector(selector);
+	}
 
-  hide() {
-    this.$el.style.display = 'none';
-  }
+	hide() {
+		this.$el.style.display = 'none';
+	}
 
-  show() {
-    this.$el.style.display = 'block';
-  }
+	show() {
+		this.$el.style.display = 'block';
+	}
 }
 
 class Box extends Component {
-  constructor(options) {
-    super(options.selector);
-    this.$el.style.width = this.$el.style.height = options.size + 'px';
-    this.$el.style.backgroundColor = options.backgroundColor;
-  }
+	constructor(options) {
+		super(options.selector);
+		this.$el.style.width = this.$el.style.height = options.size + 'px';
+		this.$el.style.backgroundColor = options.backgroundColor;
+	}
 }
 
 // const box1 = new Box({
@@ -348,10 +348,10 @@ class Box extends Component {
 // });
 
 class Circle extends Box {
-  constructor(options) {
-    super(options);
-    this.$el.style.borderRadius = '50%';
-  }
+	constructor(options) {
+		super(options);
+		this.$el.style.borderRadius = '50%';
+	}
 }
 
 // const circle = new Circle({
@@ -365,7 +365,7 @@ class Circle extends Box {
 // ### 8. Async, Await. Работа с сервером c fetch
 
 const delay = ms => {
-  return new Promise(resolve => setTimeout(() => resolve(), ms));
+	return new Promise(resolve => setTimeout(() => resolve(), ms));
 };
 
 // delay(2000).then(() => console.log('2 sec'));
@@ -391,16 +391,16 @@ const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
 // чтобы использовать await функция должна быть async
 async function fetchAsyncTodos() { // async function всегда возвращает promise
-  console.log('Fetch todos started...')
-  try {
-    await delay(2000); // пока await не завершится, дальше код не выполнится
-    const response = await fetch(url);
-    return await response.json();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    console.log('finally');
-  }
+	console.log('Fetch todos started...')
+	try {
+		await delay(2000); // пока await не завершится, дальше код не выполнится
+		const response = await fetch(url);
+		return await response.json();
+	} catch (err) {
+		console.error(err);
+	} finally {
+		console.log('finally');
+	}
 }
 
 // fetchAsyncTodos().then(data => console.log(data));
@@ -411,36 +411,36 @@ async function fetchAsyncTodos() { // async function всегда возвращ
 
 // proxy with objects
 const user = {
-  name: 'Serg',
-  age: 25,
-  job: 'Fullstack'
+	name: 'Serg',
+	age: 25,
+	job: 'Fullstack'
 }
 
 const op = new Proxy(user, {
-  get(target, prop) {
-    console.log(`Getting prop ${prop}`);
+	get(target, prop) {
+		console.log(`Getting prop ${prop}`);
 
-    if (!(prop in target)) {
-      return prop.split('_').map(p => target[p]).join(' ');
-    }
+		if (!(prop in target)) {
+			return prop.split('_').map(p => target[p]).join(' ');
+		}
 
-    return target[prop];
-  },
-  set(target, prop, value) {
-    if (prop in target) {
-      target[prop] = value;
-    } else {
-      throw new Error(`No "${prop}" field in target`);
-    }
-  },
-  has(target, prop) {
-    return ['name', 'name', 'job'].includes(prop);
-  },
-  deleteProperty(target, prop) {
-    console.log(`deleting of ${prop}`);
-    delete target[prop];
-    return true;
-  }
+		return target[prop];
+	},
+	set(target, prop, value) {
+		if (prop in target) {
+			target[prop] = value;
+		} else {
+			throw new Error(`No "${prop}" field in target`);
+		}
+	},
+	has(target, prop) {
+		return ['name', 'name', 'job'].includes(prop);
+	},
+	deleteProperty(target, prop) {
+		console.log(`deleting of ${prop}`);
+		delete target[prop];
+		return true;
+	}
 });
 
 // proxy with functions
@@ -448,33 +448,33 @@ const op = new Proxy(user, {
 const log = text => `Log: ${text}`;
 
 const fp = new Proxy(log, {
-  apply(target, thisArg, args) {
-    console.log('Calling fn...');
+	apply(target, thisArg, args) {
+		console.log('Calling fn...');
 
-    return target.apply(thisArg, args).toUpperCase();
-  }
+		return target.apply(thisArg, args).toUpperCase();
+	}
 });
 
 // proxy with classes
 
 class UserForProxy {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
+	constructor(name, age) {
+		this.name = name;
+		this.age = age;
+	}
 }
 
 const UserProxy = new Proxy(UserForProxy, {
-  construct(target, args) {
-    console.log('Construct...');
+	construct(target, args) {
+		console.log('Construct...');
 
-    return new Proxy(new target(...args), {
-      get(target, prop) {
-        console.log(`Getting prop "${prop}"`);
-        return target[prop];
-      }
-    });
-  }
+		return new Proxy(new target(...args), {
+			get(target, prop) {
+				console.log(`Getting prop "${prop}"`);
+				return target[prop];
+			}
+		});
+	}
 });
 
 // const p = new UserProxy('Max', 30);
@@ -485,33 +485,33 @@ const UserProxy = new Proxy(UserForProxy, {
 
 // Wrapper
 const withDefaultValue = (target, defaultValue = 0) => {
-  return new Proxy(target, {
-    get: (obj, prop) => (prop in obj ? obj[prop] : defaultValue)
-  });
+	return new Proxy(target, {
+		get: (obj, prop) => (prop in obj ? obj[prop] : defaultValue)
+	});
 }
 
 const position = withDefaultValue(
-  {
-    x: 24,
-    y: 42
-  },
-  0
+	{
+		x: 24,
+		y: 42
+	},
+	0
 );
 
 // Hidden properties
 const withHiddenProps = (target, prefix = '_') => {
-  return new Proxy(target, {
-    has: (obj, prop) => (prop in obj) && (!prop.startsWith(prefix)),
-    ownKeys: obj => Reflect.ownKeys(obj)
-      .filter(p => !p.startsWith(prefix)),
-    get: (obj, prop, receiver) => (prop in receiver ? obj[prop] : void 0)
-  });
+	return new Proxy(target, {
+		has: (obj, prop) => (prop in obj) && (!prop.startsWith(prefix)),
+		ownKeys: obj => Reflect.ownKeys(obj)
+			.filter(p => !p.startsWith(prefix)),
+		get: (obj, prop, receiver) => (prop in receiver ? obj[prop] : void 0)
+	});
 }
 
 const data = withHiddenProps({
-  name: 'Serg',
-  age: 25,
-  _uid: '123123' // свойства, начинающиеся с "_" будут недоступны ('_uid' in data, for (let key in data) console.log(key), Object.keys(data)
+	name: 'Serg',
+	age: 25,
+	_uid: '123123' // свойства, начинающиеся с "_" будут недоступны ('_uid' in data, for (let key in data) console.log(key), Object.keys(data)
 });
 
 /*
@@ -520,32 +520,32 @@ Optimization
 Здесь arr.find() (по-сути цикл по всему массиву) при многократном использовании может быть весьма затратной операцией при большом количестве элементов в массиве. С помощью proxy можно создать обертку, которая будет существенно оптимизировать данный процесс.
  */
 const userData = [
-  {id: 1, name: 'Serg', job: 'Fullstack', age: 25},
-  {id: 2, name: 'Max', job: 'Student', age: 23},
-  {id: 3, name: 'Jon', job: 'Backend', age: 32},
+	{id: 1, name: 'Serg', job: 'Fullstack', age: 25},
+	{id: 2, name: 'Max', job: 'Student', age: 23},
+	{id: 3, name: 'Jon', job: 'Backend', age: 32},
 ];
 
 const IndexArray = new Proxy(Array, {
-  construct(target, [args]) {
-    const index = {};
-    args.forEach(item => index[item.id] = item);
+	construct(target, [args]) {
+		const index = {};
+		args.forEach(item => index[item.id] = item);
 
-    return new Proxy(new target(...args), {
-      get(arr, prop) {
-        switch (prop) {
-          case 'push':
-            return item => {
-              index[item.id] = item; // немного поправили стандартный push для array.
-              arr[prop].call(arr, item);
-            };
-          case 'findById': // создали новый метод для array
-            return id => index[id];
-          default:
-            return arr[prop];
-        }
-      }
-    });
-  }
+		return new Proxy(new target(...args), {
+			get(arr, prop) {
+				switch (prop) {
+					case 'push':
+						return item => {
+							index[item.id] = item; // немного поправили стандартный push для array.
+							arr[prop].call(arr, item);
+						};
+					case 'findById': // создали новый метод для array
+						return id => index[id];
+					default:
+						return arr[prop];
+				}
+			}
+		});
+	}
 });
 
 const users = new IndexArray(userData);
@@ -556,11 +556,11 @@ const users = new IndexArray(userData);
 
 // Генераторы. Порционно выдаем результат
 function* strGenerator() {
-  yield 'H';
-  yield 'e';
-  yield 'l';
-  yield 'l';
-  yield 'o';
+	yield 'H';
+	yield 'e';
+	yield 'l';
+	yield 'l';
+	yield 'o';
 }
 
 const strGen = strGenerator();
@@ -570,25 +570,25 @@ const strGen = strGenerator();
 // console.log(strGen.next().value);
 
 function* numberGen(n = 10) {
-  for (let i = 0; i < n; i++) {
-    yield i;
-  }
+	for (let i = 0; i < n; i++) {
+		yield i;
+	}
 }
 
 const num = numberGen(7);
 
 const iterator = { // повторяем логику генератора
-  gen(n = 10) {
-    let i = 0;
-    return {
-      next() {
-        if (i < n) {
-          return {value: ++i, done: false};
-        }
-        return {value: undefined, done: true};
-      }
-    }
-  }
+	gen(n = 10) {
+		let i = 0;
+		return {
+			next() {
+				if (i < n) {
+					return {value: ++i, done: false};
+				}
+				return {value: undefined, done: true};
+			}
+		}
+	}
 }
 
 const itr = iterator.gen(7);
@@ -598,9 +598,9 @@ const itr = iterator.gen(7);
 // console.log(itr.next().value);
 
 function* iter(n = 10) {
-  for (let i = 0; i < n; i++) {
-    yield i;
-  }
+	for (let i = 0; i < n; i++) {
+		yield i;
+	}
 }
 
 // в генераторах определен Symbol.iterator, который позволяет работать в цикле for...of
@@ -614,10 +614,10 @@ function* iter(n = 10) {
 // ### 12. Методы массивов (forEach, map, filter, reduce, find, findIndex). Js Массивы.
 
 const peopleList = [
-  {id: 1, name: 'Serg', job: 'Fullstack', age: 25, budget: 150000},
-  {id: 2, name: 'Max', job: 'Student', age: 23, budget: 25000},
-  {id: 3, name: 'Jon', job: 'Backend', age: 32, budget: 5400},
-  {id: 4, name: 'Vera', job: 'Backend', age: 17, budget: 38000},
+	{id: 1, name: 'Serg', job: 'Fullstack', age: 25, budget: 150000},
+	{id: 2, name: 'Max', job: 'Student', age: 23, budget: 25000},
+	{id: 3, name: 'Jon', job: 'Backend', age: 32, budget: 5400},
+	{id: 4, name: 'Vera', job: 'Backend', age: 17, budget: 38000},
 ];
 
 // for (let i = 0; i < peopleList.length; i++) {
@@ -639,51 +639,51 @@ const peopleList = [
 
 // Map создает новый массив
 const newList = peopleList
-  .map((people, index, arr) => {
-  return `${people.name} ${people.age}`;
-});
+	.map((people, index, arr) => {
+		return `${people.name} ${people.age}`;
+	});
 
 // Filter фильтрует по условию исходный массив.
 const filteredList = peopleList
-  .filter((people, index, arr) => people.age > 17);
+	.filter((people, index, arr) => people.age > 17);
 
 // Reduce
 const budgetSum = peopleList
-  .reduce((sum, people, index, arr) => sum + people.budget, 0);
+	.reduce((sum, people, index, arr) => sum + people.budget, 0);
 
 // Find находим по условию нужный элемент
 const itemSerg = peopleList
-  .find((people, index, arr) => people.name === 'Serg');
+	.find((people, index, arr) => people.name === 'Serg');
 
 // FindIndex находим индекс элемента
 const itemSergIndex = peopleList
-  .findIndex((people, index, arr) => people.name === 'Serg');
+	.findIndex((people, index, arr) => people.name === 'Serg');
 
 // Выстраиваем цепочку методов - чейны
 const newArrData = peopleList
-  .filter(people => people.budget > 10000)
-  .map(people => {
-    return {
-      info: `${people.name} ${people.age}`,
-      budget: people.budget * 1.3
-    }
-  })
-  .reduce((acc, item) => acc + item.budget, 0);
+	.filter(people => people.budget > 10000)
+	.map(people => {
+		return {
+			info: `${people.name} ${people.age}`,
+			budget: people.budget * 1.3
+		}
+	})
+	.reduce((acc, item) => acc + item.budget, 0);
 
 // ================================================
 
 // ### 13. Map, Set, WeakMap, WeakSet
 
 const obj_13 = {
-  name: 'Serg',
-  age: 37,
-  job: 'fullstack'
+	name: 'Serg',
+	age: 37,
+	job: 'fullstack'
 };
 
 const entries_13 = [
-  ['name', 'Serg'],
-  ['age', 37],
-  ['job', 'fullstack']
+	['name', 'Serg'],
+	['age', 37],
+	['job', 'fullstack']
 ];
 
 // console.log(Object.entries(obj_13)); // [ [ 'name', 'Serg' ], [ 'age', 37 ], [ 'job', 'fullstack' ] ]
@@ -697,9 +697,9 @@ const map_13 = new Map(entries_13);
 // console.log(map_13.get('job'));
 
 map_13
-  .set('newField', 42)
-  .set(obj_13, 'Value of object') // здесть ключами могут быть объекты
-  .set(NaN, 'NaN ??'); // ключом может быть даже NaN
+	.set('newField', 42)
+	.set(obj_13, 'Value of object') // здесть ключами могут быть объекты
+	.set(NaN, 'NaN ??'); // ключом может быть даже NaN
 
 // console.log(map_13);
 // map_13.delete('job'); // удаление ключа
@@ -729,20 +729,20 @@ map_13
 
 // ПРИМЕР map. Для каждого пользователя нужно записать, когда он посещал сайт
 const users_13 = [
-  {name: 'Alex', age: 23},
-  {name: 'Max', age: 28},
-  {name: 'Irina', age: 24},
+	{name: 'Alex', age: 23},
+	{name: 'Max', age: 28},
+	{name: 'Irina', age: 24},
 ];
 
 const visitsUsers_13 = new Map();
 
 visitsUsers_13
-  .set(users_13[0], new Date())
-  .set(users_13[1], new Date(new Date().getTime() + 1000 * 60))
-  .set(users_13[2], new Date(new Date().getTime() + 5000 * 60));
+	.set(users_13[0], new Date())
+	.set(users_13[1], new Date(new Date().getTime() + 1000 * 60))
+	.set(users_13[2], new Date(new Date().getTime() + 5000 * 60));
 
 function lastVisit(user) {
-  return visitsUsers_13.get(user);
+	return visitsUsers_13.get(user);
 }
 
 // console.log( lastVisit(users_13[1]) );
@@ -771,7 +771,7 @@ set_13.add(10).add(20).add(20);
 
 // ПРИМЕР set. Возврат уникальных знычений из массива
 function uniqueValues(arr) {
-  return [...new Set(arr)]; // Array.from(new Set(arr))
+	return [...new Set(arr)]; // Array.from(new Set(arr))
 }
 
 // console.log(uniqueValues([1, 2, 3, 3, 4, 5, 5, 6]));
@@ -787,7 +787,7 @@ let obj_13_2 = {name: 'weakmap'};
 // console.log(obj_13_2);
 
 const weakMap = new WeakMap([ // ключами могут являться только объекты
-  [obj_13_2, 'obj data']
+	[obj_13_2, 'obj data']
 ]);
 // у WeakMap есть только get, set, delete, has
 
@@ -800,10 +800,10 @@ obj_13_2 = null;
 const cache = new WeakMap();
 
 function cacheUser(user) {
-  if (!cache.has(user)) {
-    cache.set(user, Date.now());
-  }
-  return cache.get(user);
+	if (!cache.has(user)) {
+		cache.set(user, Date.now());
+	}
+	return cache.get(user);
 }
 
 let userLena = {name: 'Lena'};
@@ -820,9 +820,9 @@ userLena = null;
 // WeakSet. Значениями могут являться только объекты. И Если какой-то объект вычищается сборщиком мусора, то тогда он удаляется из WeakSet.
 
 const users_13_2 = [
-  {name: 'Alex', age: 23},
-  {name: 'Max', age: 28},
-  {name: 'Irina', age: 24},
+	{name: 'Alex', age: 23},
+	{name: 'Max', age: 28},
+	{name: 'Irina', age: 24},
 ];
 
 const visits_13 = new WeakSet();
@@ -838,4 +838,6 @@ users_13_2.splice(1, 1);
 
 // 14. Запросы на сервер. Fetch, XMLHttpRequest (XHR), Ajax
 
-// Смотреть файл xhr.js
+// XMLHttpRequest - Смотреть файл xhr.js
+
+// Fetch - Смотреть файл fetch.js
