@@ -979,4 +979,50 @@ function logPerson_16({name: firstName = '111', age}) {
 	console.log(firstName + ' ' + age);
 }
 
-logPerson_16(person_16);
+// logPerson_16(person_16);
+
+// ============================================================
+
+// 17. LocalStorage - это только браузерный api, работает только со строками
+// В консоли браузера вкладка Application -> localStorage
+
+const myNumber = 42;
+
+// localStorage.removeItem('number');
+//
+// console.log(localStorage.getItem('number'));
+//
+// localStorage.setItem('number', myNumber.toString());
+//
+// console.log(localStorage.getItem('number'));
+//
+// localStorage.clear();
+
+const object = {
+	name: 'Max',
+	age: 20
+};
+
+localStorage.setItem('person', JSON.stringify(object));
+
+const raw = localStorage.getItem('person');
+const personFromRaw = JSON.parse(raw);
+personFromRaw.name = 'Serg';
+
+// console.log(personFromRaw);
+
+// Если приложение открыто в разных вкладках, то можно все это дело синхронизировать
+
+// window.onstorage = () => {};
+
+window.addEventListener('storage', event => { // это событие срабатывает, если мы сделаем, например, setItem в другой вкладке
+	console.log(event);
+});
+
+/*
+Вопрос на собеседовании: Разница между localStorage и cookie?
+
+- localStorage намного больше, примерно 5 Mb данных мы можем хранить локально в браузере;
+- cookie улетают с запосами на сервер ( сервер может это распарсить и прочитать ),
+localStorage не улетает на сервер.
+ */
