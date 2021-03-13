@@ -841,3 +841,94 @@ users_13_2.splice(1, 1);
 // XMLHttpRequest - Смотреть файл xhr.js
 
 // Fetch - Смотреть файл fetch.js
+
+// ==================================================
+
+// 15. Spread и Rest - операторы в ES6 синтаксисе.
+
+const citiesRussia = ["Москва", "Казань", "Томск", "Новосибирск"];
+const citiesEurope = ["Берлин", "Прага", "Париж"];
+
+// Spread
+// console.log(...citiesRussia); // Москва Казань Томск Новосибирск. Разворачивает массив строк.
+
+const allCitiesConcat = citiesEurope.concat(citiesRussia, "Вашингтон")
+const allCities = [...citiesRussia, "Вашингтон", ...citiesEurope];
+
+// console.log(allCities); // объединили массивы в один
+
+const citiesRussiaWithPopulation = {
+	Moscow: 20,
+	SaintPetersburg: 8,
+	Kazan: 5,
+	Novosibirsk: 3
+};
+
+const citiesEuropeWithPopulation = {
+	Moscow: 30,
+	Berlin: 10,
+	Praha: 3,
+	Paris: 2
+};
+
+// console.log(...citiesRussiaWithPopulation); // TypeError: Found non-callable @@iterator
+
+// console.log({...citiesRussiaWithPopulation}); // Объекты нужно раскрывать в объекте. Происходит клонирование объектов в новый объект.
+
+// console.log({...citiesRussiaWithPopulation, ...citiesEuropeWithPopulation});
+
+// ПРАКТИКА.
+// const numbers = [4, 6, 32, 98, 5];
+
+// console.log(Math.max.apply(null, numbers));
+// console.log(Math.max(...numbers));
+
+// const divs = document.querySelectorAll('div');
+
+// console.log(divs.map); // Error: divs.map is not a function. Здесь divs - это не массив, это спец. коллекция dom-элементов;
+
+// const nodes = [...divs];
+
+// console.log('divs is arr -', Array.isArray(divs));
+// console.log('nodes is arr -', Array.isArray(nodes));
+// console.log(nodes);
+
+// Rest
+function sum(a, b) {
+	return a + b;
+}
+
+const numbers2 = [1, 3, 2, 5, 6];
+
+// Здесь используем Spread!!
+// console.log(sum(...numbers2)); // Результат 4. Здесь обработаюстя только два первых элемента.
+
+function sum2(a, b, ...rest) { // здесь это оператор Rest !!
+	// console.log(...rest); // здесь это оператор Spread !!
+	return a + b + rest.reduce((total, currentVal) => total + currentVal, 0);
+}
+
+// console.log(sum2(...numbers2));
+
+// const a = numbers2[0];
+// const b = numbers2[1];
+
+const [a, b, ...other] = numbers2; // ДЕСТРУКТУРИЗАЦИЯ
+
+// console.log(a, b, other);
+
+const person_15 = {
+	name: 'Max',
+	age: 23,
+	city: 'Moscow',
+	country: 'Russia'
+};
+
+const {city, age, ...info} = person_15; // ДЕСТРУКТУРИЗАЦИЯ
+
+console.log(city, age, info);
+
+/*
+Spread разворачивает массивы или объекты. Служит для создания новых массивов или объектов.
+Rest собирает все параметры либо в массив (часто встречается в функциях) либо в объектах все остальные поля.
+ */
