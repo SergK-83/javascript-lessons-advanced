@@ -913,7 +913,7 @@ function sum2(a, b, ...rest) { // здесь это оператор Rest !!
 // const a = numbers2[0];
 // const b = numbers2[1];
 
-const [a, b, ...other] = numbers2; // ДЕСТРУКТУРИЗАЦИЯ
+// const [a, b, ...other] = numbers2; // ДЕСТРУКТУРИЗАЦИЯ
 
 // console.log(a, b, other);
 
@@ -924,11 +924,59 @@ const person_15 = {
 	country: 'Russia'
 };
 
-const {city, age, ...info} = person_15; // ДЕСТРУКТУРИЗАЦИЯ
+// const {city, age, ...info} = person_15; // ДЕСТРУКТУРИЗАЦИЯ
 
-console.log(city, age, info);
+// console.log(city, age, info);
 
 /*
 Spread разворачивает массивы или объекты. Служит для создания новых массивов или объектов.
 Rest собирает все параметры либо в массив (часто встречается в функциях) либо в объектах все остальные поля.
  */
+
+// ============================================================
+
+// 16. Все о Деструктуризации в JS.
+
+// Деструктуризация с массивами
+function calcValues(a, b) {
+	return [
+		a + b,
+		undefined,
+		a - b,
+		a * b,
+		a / b
+	];
+}
+
+const [sum16, sum16_2 = 'Повторно сумма', , mult, ...other16] = calcValues(42, 10);
+
+// console.log(sum16, sum16_2, mult, other16);
+
+// Деструктуризация с объектами
+const person_16 = {
+	name: 'Max',
+	age: '34',
+	address: {
+		country: 'Russia',
+		city: 'Moscow'
+	}
+};
+
+// const {
+// 	name: firstName = 'Без имени',
+// 	age,
+// 	car = 'Машины нет',
+// 	address: {city: homeTown, country}
+// } = person_16;
+//
+// console.log(firstName, age, car, homeTown, country);
+//
+// const {name, ...info} = person_16; // применяем оператор Rest
+//
+// console.log(name, info);
+
+function logPerson_16({name: firstName = '111', age}) {
+	console.log(firstName + ' ' + age);
+}
+
+logPerson_16(person_16);
