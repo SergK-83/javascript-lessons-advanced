@@ -42,7 +42,7 @@ Array.prototype.multBy = function (n) {
 // ### 2. Контекст this. Как работает call, bind, apply
 
 function hello() {
-	console.log('Hello', this);
+	console.log('Hello', this); // this = объект Window
 }
 
 // const person2 = {
