@@ -1,3 +1,15 @@
+'use strict';
+
+// Проверка включения strict mode
+// function func() {return this}
+// const a = func();
+// console.log(a === global);
+//
+/*
+В нестрогом режиме здесь this вернет глобальный объект.
+Когда мы вызываем функцию как функцию (не как метод объекта), эта функция будет выполнена в глобальном контексте. Значением переменной this в данном случае будет ссылка на глобальный объект. Однако, если функция вызывается как функция в строгом режиме (strict mode) — значением this будет undefined.
+ */
+
 // Interview JavaScript
 
 // let foo = [1, 2, 3, 4];
@@ -60,13 +72,19 @@ setTimout 0
 
 // function Dog(name) {
 //   this.name = name;
+//   this.run = function () {
+//     console.log('dog is running');
+//   }
 // }
+//
 // Dog.bark = function () {
 //   console.log(this);
 //   console.log(this.name + ' say woof');
 // };
 //
 // let fido = new Dog('fido');
+//
+// fido.run(); // dog is running
 //
 // fido.bark(); // ошибка, пытаемся вызвать статический метод (недоступен для объектов). Будет доступен, если сделаем Dog.prototype.bark.
 
@@ -150,32 +168,34 @@ function flatten(arr, num = 0) {
 // console.log(flatten(arrForFlat, 2));
 
 // ==========================================
+// interview Diasoft. Вопрос: что будет в выводе и почему?
 
-function Abc() {
-  let private = 'private_abc';
-  this.public = 'public_abc';
+// function Abc() {
+//   let private = 'private_abc';
+//   this.public = 'public_abc';
+//
+//   this.methodA = function() {
+//     console.log(private);
+//     console.log(this.public);
+//   };
+//
+//   this.methodB = () => {
+//     console.log(private);
+//     console.log(this.public);
+//   };
+// }
+//
+// function Bcd() {
+//   let private = 'private_bcd';
+//   this.public = 'public_bcd';
+// }
+//
+// let abc = new Abc();
+// let bcd = new Bcd();
+//
+// bcd.methodA = abc.methodA;
+// bcd.methodB = abc.methodB;
+//
+// bcd.methodA();
+// bcd.methodB();
 
-  this.methodA = function() {
-    console.log(private);
-    console.log(this.public);
-  };
-
-  this.methodB = () => {
-    console.log(private);
-    console.log(this.public);
-  };
-}
-
-function Bcd() {
-  let private = 'private_bcd';
-  this.public = 'public_bcd';
-}
-
-let abc = new Abc();
-let bcd = new Bcd();
-
-bcd.methodA = abc.methodA;
-bcd.methodB = abc.methodB;
-
-bcd.methodA();
-bcd.methodB();
