@@ -29,7 +29,6 @@
 // console.log(false == 0); // true
 // console.log(NaN === NaN) //false (NaN – это специальное числовое значение, которое возвращает false при любых сравнениях.)
 
-
 //==========================================
 
 // console.log('scrip start');
@@ -102,10 +101,10 @@ function multiply(a, b) {
 
 // Глубокое копирование объекта
 
-const food = { beef: '?', bacon: '?' }
+const food = {beef: '?', bacon: '?'}
 
 // "Spread"
-const newFood_1 = { ...food };
+const newFood_1 = {...food};
 
 // "Object.assign"
 const newFood_2 = Object.assign({}, food)
@@ -199,3 +198,155 @@ function flatten(arr, num = 0) {
 // bcd.methodA();
 // bcd.methodB();
 
+// Деструктуризация
+// ===========================================
+
+// const b = 23;
+//
+// const obj = {
+//   a: 1,
+//   b: 2,
+//   c: 3,
+//   d: 4
+// };
+// let {b: bb, d} = obj;
+//
+// // console.log(bb, d);
+//
+// function print({a, c} = {}) {
+//   console.log(a, c);
+// }
+//
+// print(obj);
+
+// ЗАДАЧА. Что будет в консоли ???
+// ============================================
+
+// function b() {
+//   function b() {
+//
+//     var b = function () {
+//       console.log('шарик находится');
+//       console.log(b);
+//       b = 'под колпачком 3';
+//     }
+//
+//     return b;
+//   }
+//
+//   b = b();
+//   b();
+//   b = 'под колпачком 2';
+// }
+//
+// b(); // шарик находится [Function: b]
+//
+// var b = 'под колпачком 1';
+
+// ЗАДАЧА. Найти все наборы анаграмм.
+// ============================================
+
+const strAnagr = 'адрес карп кума мир мука парк рим среда стук рост сорт трос';
+
+function getAnagrams(string) {
+  let arr = string.split(' ');
+  const res = [];
+
+  function func(arr) {
+    if (!arr.length) return null;
+
+    const word = arr[0];
+    const sortingWord = word.toLowerCase().split('').sort().join();
+
+    arr.splice(0, 1);
+
+    const arrAnagr = arr
+      .filter(item => item.toLowerCase().split('').sort().join() === sortingWord);
+
+    if (arrAnagr.length) {
+      arrAnagr.forEach(word => {
+        arr = arr.filter(item => item !== word);
+      });
+
+      arrAnagr.unshift(word);
+      res.push(arrAnagr);
+    }
+
+    func(arr);
+  }
+
+  func(arr);
+
+  console.log(res);
+}
+
+function getAnagrams2(string) {
+  const arr = string.split(' ');
+  const list = {};
+  const res = [];
+
+  arr.forEach(word => {
+    const prop = word.toLowerCase().split('').sort().join('');
+
+    list[prop] = arr.filter(item => item.toLowerCase().split('').sort().join('') === prop);
+  });
+
+  for (let key in list) {
+    if (list.hasOwnProperty(key)) {
+      list[key].length > 1 ? res.push(list[key]) : null;
+    }
+  }
+
+  console.log(res);
+}
+
+function getAnagrams3(string) {
+  const arr = string.split(' ');
+  const anagrams = new Map();
+
+  arr.forEach(word => {
+    const key = word.split('').sort().join('');
+    const arrVal = anagrams.get(key) || [];
+
+    anagrams.set(key, [...arrVal, word]);
+  });
+
+  const res = Array.from(anagrams.values()).filter(arr => arr.length > 1);
+
+  console.log(res);
+}
+
+// getAnagrams3(strAnagr);
+
+// ЗАДАЧА. Складывать все цифры в числе, пока не останется одна цифра (однозначное число) с помощью рекурсии и без рекурсии.
+// ============================================
+
+function getDigitsSumRec(num) {
+  if (num < 10) return num;
+
+  const arr = String(num).split('');
+  const sum = arr.reduce((acc, item) => acc + Number(item), 0);
+
+  return getDigitsSumRec(sum);
+}
+
+// console.log(getDigitsSumRec(87653));
+
+function getDigitsSum(num) {
+  while (num >= 10) {
+    const arr = String(num).split('');
+    num = arr.reduce((acc, item) => acc + Number(item), 0);
+  }
+  return num;
+}
+
+// console.log(getDigitsSum(87653));
+
+let a = 1;
+let b = 2;
+
+console.log(a ^ b);
+
+[a, b] = [b, a];
+
+// console.log('a: ' + a, 'b: ' + b);
